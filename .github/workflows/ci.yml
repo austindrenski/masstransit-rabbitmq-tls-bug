@@ -1,0 +1,30 @@
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  RABBITMQ_HOST: ${{ secrets.RABBITMQ_HOST }}
+  RABBITMQ_PASS: ${{ secrets.RABBITMQ_PASS }}
+  RABBITMQ_USER: ${{ secrets.RABBITMQ_USER }}
+  RABBITMQ_VHOST: ${{ secrets.RABBITMQ_VHOST }}
+
+jobs:
+  repro:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - macos-latest
+        - ubuntu-latest
+        - windows-latest
+
+    steps:
+    - uses: actions/checkout@v3.5.3
+
+    - uses: actions/setup-dotnet@v3.2.0
+
+    - run: dotnet run -p:DefineConstants=SET_EXPLICIT_SSL_PROTOCOLS
+
+    - run: dotnet run
