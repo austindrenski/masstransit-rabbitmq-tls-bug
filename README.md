@@ -1,5 +1,7 @@
 # Getting Started
 
+See: MassTransit/MassTransit#4522
+
 ## Background
 
 This repository demonstrates a (potential) MassTransit bug caused by the default [`ConfigurationHostSettings.SslProtocol`][ConfigurationHostSettings]
